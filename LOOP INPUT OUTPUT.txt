@@ -1,0 +1,41 @@
+.model small
+.stack 100h
+.data      
+
+msg dw 'Maaz $'
+.code
+           
+          
+          
+MAIN PROC 
+     
+    
+     
+    MOV AH,01H
+    INT 21H 
+    MOV BX,AX          ;1 INPUT FOR LOOP 
+    
+                   
+            
+    
+    MOV AX,@DATA
+    MOV DS,AX 
+    MOV AH,09H
+    MOV CX,BX          ;CX COUNTER REGISTER DEFINES LOOP, WILL RUN 10 TIMES. 
+             
+    
+       
+    PRINT:             ;LOOP LABLE 
+    INT  21H  
+    
+   
+ 
+    LOOP PRINT   
+        
+        
+    MOV AH,4CH
+    INT 21H    
+    
+ 
+    MAIN ENDP
+END MAIN
