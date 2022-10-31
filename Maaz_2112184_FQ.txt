@@ -1,0 +1,131 @@
+.MODEL SMALL
+    .STACK 100H  
+    .DATA   
+    
+    msg1 dw 'Input 1 for A-Z, 2 for a-z, 3 for 1-10, 4 for U-L, 5 for L-U$' 
+    ONE DB '1'
+    TWO DB '2'
+    THREE DB '3'
+    FOUR DB '4'
+    FIVE DB '5'
+    
+    .CODE 
+    
+MAIN PROC 
+    
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    LEA DX,MSG1
+    MOV AH,09H
+    INT 21H
+     
+        
+    MOV AH,01H 
+    INT 21H 
+  
+    ;FOR A-Z
+    CMP AL,ONE
+    JE PRINTAZ 
+    
+    PRINTAZ:   
+mov cx, 26
+mov Ah, 2
+mov dl, 65    
+    L1:
+int 21h
+inc dl
+loop L1
+mov dl, 10
+mov Ah,2
+INT 21h
+mov dl, 13
+mov Ah,2
+INT 21h
+mov cx, 26
+mov dl, 97
+mov Ah, 2
+END 
+   
+ 
+     
+    
+     
+       
+    ;FOR a-z   
+    CMP AL,TWO
+    JE PRINTSAZ  
+    
+    
+    PRINTSAZ:     
+MOV CX, 26                   ; initialize CX
+MOV AH, 2                    ; set output function  
+MOV DL, 122                  ; set Dl with 'z'
+L2:                       ; loop start
+INT 21H                    ; print character
+DEC DL                     ; increment DL to next ASCII character
+DEC CX                     ; decrement CX
+LOOP L2 
+END
+                     
+    
+   
+    ;FOR 1-10
+    CMP AL,THREE
+    JE PRINTNUM
+    
+    
+    PRINTNUM:     
+mov cx,5
+
+mov dx,0
+L3:
+mov bx,2
+add dx,bx
+mov ah,02h
+loop L3
+int 21 
+END
+
+    ;FOR U-L
+    CMP AL,FOUR
+    JE PRINTUL
+    
+    PRINTUL:
+ MOV AH,1
+ INT 21H
+ MOV DL,AL
+ ADD DL,32      
+ MOV AH,2
+ INT 21H       
+ END
+ 
+     
+     ;FOR L-U
+     CMP AL,FIVE
+     JE PRINTLU
+     
+     PRINTLU: 
+ MOV AH,1
+ INT 21H
+ MOV DL,AL
+ SUB DL,32      ; sub for small to capital
+ MOV AH,2
+ INT 21H
+ END     
+     
+            
+    
+        
+    
+    
+MAIN ENDP
+END MAIN
+                 
+                 
+                 
+                 
+
+    
+    
+   
