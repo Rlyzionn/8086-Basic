@@ -1,0 +1,58 @@
+.model small
+.stack 100h  
+.data 
+VAR1 DW ?
+VAR2 DW ?
+VAR3 DW ?
+VAR4 DW ?
+.code
+
+main proc 
+    
+        
+MOV VAR1,'4'
+MOV VAR2,'3'
+MOV VAR3,'2'
+MOV VAR4,'1'        
+          
+
+PUSH VAR1
+PUSH VAR2
+PUSH VAR3
+PUSH VAR4
+
+POP VAR1 
+MOV DX,VAR1
+MOV AH,02H
+INT 21H
+
+POP VAR2
+MOV DX,VAR2
+MOV AH,02H
+INT 21H 
+
+POP VAR3
+MOV DX,VAR3
+MOV AH,02H
+INT 21H
+
+POP VAR4
+MOV DX,VAR4
+MOV AH,02H
+INT 21H
+
+MOV AH,4CH
+INT 21H
+
+MAIN ENDP
+
+
+
+    
+    
+    
+    
+               
+           
+
+

@@ -1,0 +1,164 @@
+
+PRINTFUNC MACRO P1        ; FUNCTION TO PRINT 
+    MOV AH,02H
+    MOV DL,P1
+    SUB DL,30H
+    INT 21H   
+ENDM  
+
+PRINTSTATEMENT MACRO STAT
+    
+    MOV AX,OFFSET STAT
+    MOV AH,09H
+    INT 21H  
+    
+ENDM 
+
+
+
+INPUTCHOICE MACRO 
+    MOV AH,01H
+    MOV BH,AL
+    INT 21H
+    
+    INPUTNUMBER BH
+        
+ENDM   
+
+
+INPUTNUMBER MACRO VAR
+    
+    
+    MOV CHOICE,VAR
+    
+    MOV AH,01H
+    INT 21H 
+    MOV BL,AL
+    MOV AH,01H
+    INT 21H
+    MOV BH,AL 
+    MOV VAR1,BL
+    MOV VAR2,BH 
+    
+    CMP CHOICE,'1' 
+    JE ADDD
+    JNE SUBB
+     
+    ADDD: 
+    ADDITION VAR1,VAR2
+     ENDP
+    
+    SUBB:
+    SUBTRACTION VAR1,VAR2
+     ENDP
+    
+ENDM
+
+    
+       
+    
+    
+    
+ENDP
+
+     
+
+
+                     
+                               
+ADDITION MACRO P3,P4      ; FUNCTION TO ADD     
+    MOV BL,P3
+    MOV BH,P4
+    ADD BH,BL
+   
+    PRINTFUNC BH          ; FUNCTION OF PRINT CALLED INSIDE FUNTION OF ADD
+ENDM    
+
+SUBTRACTION MACRO P3,P4      ; FUNCTION TO ADD     
+    MOV BL,P3
+    MOV BH,P4
+    ADD BH,BL
+   
+    PRINTFUNC BH          ; FUNCTION OF PRINT CALLED INSIDE FUNTION OF ADD
+ENDM   
+
+
+
+.MODEL SMALL
+.STACK 100H
+.DATA
+MSG1 DB "Input number 1: $"
+MSG2 DB "Input number 2: $"
+MSG3 DB "[1] ADDITION [2] SUBTRACTION: $" 
+VAR1 DB ?
+VAR2 DB ?
+CHOICE DB ? 
+
+
+.CODE
+MAIN PROC  
+    
+    MOV AX,@DATA
+    MOV DS,AX
+    
+   
+   PRINTSTATEMENT MSG1
+   PRINTSTATEMENT MSG2
+   PRINTSTATEMENT MSG3
+   INPUTCHOICE
+ 
+ 
+    
+    
+
+END MAIN
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
+     
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+

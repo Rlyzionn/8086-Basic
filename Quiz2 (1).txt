@@ -1,0 +1,94 @@
+.model small
+.stack 100h  
+.data
+MEMORY_HDD DB 20
+DRIVE_D DB ?
+DRIVE_E DB ?
+DRIVE_F DB ? 
+PRINTA DW 'DRIVE D : 40% IS 4GB, DRIVE E : 40% IS 4GB, DRIVE F : 20% IS 2GB $'
+PRINTB DW 'DRIVE D : 40% IS 6GB, DRIVE E : 40% IS 6GB, DRIVE F : 20% IS 3GB $'
+PRINTC DW 'DRIVE D : 40% IS 8GB, DRIVE E : 40% IS 8GB, DRIVE F : 20% IS 4GB $' 
+PRINTD DW 'DRIVE D : 40% IS 10GB, DRIVE E : 40% IS 10GB, DRIVE F : 20% IS 5GB $'
+.code
+
+main proc     
+    
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    
+    CMP MEMORY_HDD,10 
+    JE HDD10GB
+    CMP MEMORY_HDD,15
+    JE HDD15GB
+    CMP MEMORY_HDD,20
+    JE HDD20GB 
+    CMP MEMORY_HDD,25
+    JE HDD25GB
+    
+
+HDD10GB:    
+    MOV BH,4
+    MOV DRIVE_D,BH
+    MOV BH,4
+    MOV DRIVE_E,BH
+    MOV BH,2
+    MOV DRIVE_F,BH  
+    LEA DX,PRINTA
+    MOV AH,09H
+    INT 21H
+    JMP TERM
+
+HDD15GB: 
+    MOV BH,6
+    MOV DRIVE_D,BH
+    MOV BH,6
+    MOV DRIVE_E,BH
+    MOV BH,3
+    MOV DRIVE_F,BH 
+    LEA DX,PRINTB
+    MOV AH,09H
+    INT 21H
+    JMP TERM 
+
+HDD20GB: 
+    MOV BH,8
+    MOV DRIVE_D,BH
+    MOV BH,8
+    MOV DRIVE_E,BH
+    MOV BH,4
+    MOV DRIVE_F,BH
+    LEA DX,PRINTC
+    MOV AH,09H
+    INT 21H
+    JMP TERM
+
+HDD25GB: 
+    MOV BH,10
+    MOV DRIVE_D,BH
+    MOV BH,10
+    MOV DRIVE_E,BH
+    MOV BH,5
+    MOV DRIVE_F,BH 
+    LEA DX,PRINTD
+    MOV AH,09H
+    INT 21H 
+    JMP TERM 
+
+
+   
+TERM:
+END 
+
+END PROC
+MAIN ENDP
+
+
+    
+    
+    
+    
+               
+           
+
+
